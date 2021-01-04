@@ -1,15 +1,11 @@
-package com.company;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
     public static void main(String x[]) throws IOException {
@@ -19,82 +15,81 @@ public class Main {
         String user = "C:\\piotr\\Studia\\Magisterka\\Data Warehouses\\Project\\databases\\yelp\\yelp_academic_dataset_user.json";
         String business = "C:\\piotr\\Studia\\Magisterka\\Data Warehouses\\Project\\databases\\yelp\\yelp_academic_dataset_business.json";
 
-        FileWriter writer1 = new FileWriter("Review.json");
-        JSONArray jsonReviews = null;
-        try {
-            jsonReviews = readReview(new File(review), "UTF-8");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        JSONArray.writeJSONString(jsonReviews, writer1);
-        writer1.close();
 
+//        ReplaceInFile replaceInFile = new ReplaceInFile("}", "},");
+//        replaceInFile.matchAndReplace(new File(business), new File("Business.json"));
+
+
+        readReview(new File(review), "Review.json");
+
+//        read(new File(user), "User.json");
+//
 //        FileWriter writer2 = new FileWriter("Checkin.json");
-//        JSONArray jsonCheckin = null;
-//        try {
-//            jsonCheckin = read(new File(checkin), "UTF-8");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        JSONArray.writeJSONString(jsonCheckin, writer2);
 //        writer2.close();
-//        System.gc();
 //
 //        FileWriter writer3 = new FileWriter("User.json");
-//        JSONArray jsonUser = null;
-//        try {
-//            jsonUser = read(new File(user), "UTF-8");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+//        writer3.close();
+//
 //
 //        FileWriter writer4 = new FileWriter("Business.json");
-//        JSONArray.writeJSONString(jsonUser, writer3);
-//        writer3.close();
-//        System.gc();
 //
-//        JSONArray jsonBuisness = null;
-//        try {
-//            jsonBuisness = read(new File(business), "UTF-8");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        System.gc();
-//        JSONArray.writeJSONString(jsonBuisness, writer4);
 //        writer4.close();
     }
 
-    public static JSONArray readReview(File MyFile, String Encoding) throws FileNotFoundException, ParseException {
-        Scanner scn = new Scanner(MyFile, Encoding);
-        JSONArray json = new JSONArray();
-        int i = 0;
-        while (scn.hasNext() && i < 2000000) {
-            JSONObject obj = (JSONObject) new JSONParser().parse(scn.nextLine());
-            if (obj.get("text").toString().contains(";")) {
-                obj.put("text", obj.get("text").toString().replaceAll(";", ","));
-            }
-            json.add(obj);
+    public static void readReview(File MyFile, String outFile) throws FileNotFoundException {
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
 
-            if (i % 10000 == 0)
-                System.out.println(MyFile.getName() + " " + i + " ");
-            i++;
+        try (FileReader reader = new FileReader(MyFile);
+             BufferedReader bufferedReader = new BufferedReader(reader);
+        ) {
+            String currentLine;
+            int i = 0;
+            while ((currentLine = bufferedReader.readLine()) != null && i < 6000000) {
+                JsonNode logStorageNode = mapper.readTree(currentLine);
+                ObjectNode object = (ObjectNode) logStorageNode;
+                object.remove("text");
+                arrayNode.add(logStorageNode);
+                if (i % 10000 == 0)
+                    System.out.println(MyFile.getName() + " " + i);
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return json;
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+        try {
+            writer.writeValue(new File(outFile), arrayNode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static JSONArray read(File MyFile, String Encoding) throws FileNotFoundException, ParseException {
-        Scanner scn = new Scanner(MyFile, Encoding);
-        JSONArray json = new JSONArray();
-        int i = 0;
-        while (scn.hasNext()) {
-            JSONObject obj = (JSONObject) new JSONParser().parse(scn.nextLine());
-            json.add(obj);
+    public static void read(File MyFile, String outFile) {
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
 
-            if (i % 10000 == 0)
-                System.out.println(MyFile.getName() + " " + i);
-            i++;
+        try (FileReader reader = new FileReader(MyFile);
+             BufferedReader bufferedReader = new BufferedReader(reader);
+        ) {
+            String currentLine;
+            int i = 0;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                JsonNode logStorageNode = mapper.readTree(currentLine);
+                arrayNode.add(logStorageNode);
+                if (i % 10000 == 0)
+                    System.out.println(MyFile.getName() + " " + i);
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return json;
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+        try {
+            writer.writeValue(new File(outFile), arrayNode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

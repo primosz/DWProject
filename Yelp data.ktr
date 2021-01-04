@@ -468,11 +468,6 @@
       <enabled>N</enabled>
     </hop>
     <hop>
-      <from>json_buisness</from>
-      <to>Text file output 4</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Split checkins to rows</from>
       <to>Remove id prefix</to>
       <enabled>N</enabled>
@@ -515,11 +510,6 @@
     <hop>
       <from>Sort rows</from>
       <to>Merge join 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values 3 2 2</from>
-      <to>Sort rows 3 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -696,7 +686,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <join_type>RIGHT OUTER</join_type>
+    <join_type>INNER</join_type>
     <step1>Sort rows 3</step1>
     <step2>Sort rows</step2>
     <keys_1>
@@ -714,7 +704,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
+      <xloc>816</xloc>
       <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1026,18 +1016,6 @@
         <precision>0</precision>
       </field>
       <field>
-        <name>text</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
         <name>date</name>
         <type>String</type>
         <format/>
@@ -1221,27 +1199,31 @@
       </field>
       <field>
         <name>review_id</name>
+        <rename/>
       </field>
       <field>
         <name>business_id</name>
+        <rename/>
       </field>
       <field>
         <name>stars</name>
+        <rename/>
       </field>
       <field>
         <name>useful</name>
+        <rename/>
       </field>
       <field>
         <name>funny</name>
+        <rename/>
       </field>
       <field>
         <name>cool</name>
-      </field>
-      <field>
-        <name>text</name>
+        <rename/>
       </field>
       <field>
         <name>date</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1288,8 +1270,42 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>752</xloc>
+      <xloc>768</xloc>
       <yloc>880</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1104</xloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1332,40 +1348,6 @@
     <GUI>
       <xloc>656</xloc>
       <yloc>592</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort rows 2</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1104</xloc>
-      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1516,8 +1498,8 @@
     </GUI>
   </step>
   <step>
-    <name>Text file output 4</name>
-    <type>TextFileOutput</type>
+    <name>json_buisness</name>
+    <type>JsonInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1526,38 +1508,77 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding>windows-1250</encoding>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
     <file>
-      <name>file</name>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery/>
+      <name>${Internal.Entry.Current.Directory}/parser/Business.json</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
     </file>
     <fields>
+      <field>
+        <name>business_id</name>
+        <path>$[*].business_id</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>name</name>
+        <path>$[*].name</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>city</name>
+        <path>$[*].city</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
     </fields>
+    <limit>0</limit>
+    <IsInFields>N</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField>Line</valueField>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1567,8 +1588,91 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>800</yloc>
+      <xloc>384</xloc>
+      <yloc>880</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>json_checkin</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/parser/Checkin.json</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>business_id</name>
+        <path>$[*].business_id</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>date</name>
+        <path>$[*].date</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>N</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField>Line</valueField>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1595,7 +1699,7 @@
     <defaultPathLeafToNull>N</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>${Internal.Entry.Current.Directory}/output.json</name>
+      <name>${Internal.Entry.Current.Directory}/parser/Review.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1694,19 +1798,6 @@
         <repeat>N</repeat>
       </field>
       <field>
-        <name>text</name>
-        <path>$[*].text</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
         <name>date</name>
         <path>$[*].date</path>
         <type>String</type>
@@ -1747,185 +1838,6 @@
     </GUI>
   </step>
   <step>
-    <name>json_buisness</name>
-    <type>JsonInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <addresultfile>N</addresultfile>
-    <readurl>N</readurl>
-    <removeSourceField>N</removeSourceField>
-    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
-    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <ignoreMissingPath>Y</ignoreMissingPath>
-    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
-    <rownum_field/>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>business_id</name>
-        <path>$.business_id</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>name</name>
-        <path>$.name</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>city</name>
-        <path>$.city</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <IsInFields>Y</IsInFields>
-    <IsAFile>N</IsAFile>
-    <valueField>Line</valueField>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>384</xloc>
-      <yloc>880</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>json_checkin</name>
-    <type>JsonInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <addresultfile>N</addresultfile>
-    <readurl>N</readurl>
-    <removeSourceField>N</removeSourceField>
-    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
-    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <ignoreMissingPath>Y</ignoreMissingPath>
-    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
-    <rownum_field/>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>business_id</name>
-        <path>$.business_id</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>date</name>
-        <path>$.date</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <IsInFields>Y</IsInFields>
-    <IsAFile>N</IsAFile>
-    <valueField>Line</valueField>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>720</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>json_user</name>
     <type>JsonInput</type>
     <description/>
@@ -1948,7 +1860,7 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name/>
+      <name>${Internal.Entry.Current.Directory}/parser/User.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1957,7 +1869,7 @@
     <fields>
       <field>
         <name>user_id</name>
-        <path>$.user_id</path>
+        <path>$[*].user_id</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -1970,7 +1882,7 @@
       </field>
       <field>
         <name>name</name>
-        <path>$.name</path>
+        <path>$[*].name</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -1983,7 +1895,7 @@
       </field>
       <field>
         <name>review_count</name>
-        <path>$.review_count</path>
+        <path>$[*].review_count</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -1996,7 +1908,7 @@
       </field>
       <field>
         <name>yelping_since</name>
-        <path>$.yelping_since</path>
+        <path>$[*].yelping_since</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -2009,7 +1921,7 @@
       </field>
       <field>
         <name>useful</name>
-        <path>$.useful</path>
+        <path>$[*].useful</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2022,7 +1934,7 @@
       </field>
       <field>
         <name>funny</name>
-        <path>$.funny</path>
+        <path>$[*].funny</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2035,7 +1947,7 @@
       </field>
       <field>
         <name>cool</name>
-        <path>$.cool</path>
+        <path>$[*].cool</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2048,7 +1960,7 @@
       </field>
       <field>
         <name>elite</name>
-        <path>$.elite</path>
+        <path>$[*].elite</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -2061,7 +1973,7 @@
       </field>
       <field>
         <name>friends</name>
-        <path>$.friends</path>
+        <path>$[*].friends</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -2074,7 +1986,7 @@
       </field>
       <field>
         <name>fans</name>
-        <path>$.fans</path>
+        <path>$[*].fans</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2087,7 +1999,7 @@
       </field>
       <field>
         <name>average_stars</name>
-        <path>$.average_stars</path>
+        <path>$[*].average_stars</path>
         <type>Number</type>
         <format/>
         <currency/>
@@ -2100,7 +2012,7 @@
       </field>
       <field>
         <name>compliment_hot</name>
-        <path>$.compliment_hot</path>
+        <path>$[*].compliment_hot</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2113,7 +2025,7 @@
       </field>
       <field>
         <name>compliment_more</name>
-        <path>$.compliment_more</path>
+        <path>$[*].compliment_more</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2126,7 +2038,7 @@
       </field>
       <field>
         <name>compliment_profile</name>
-        <path>$.compliment_profile</path>
+        <path>$[*].compliment_profile</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2139,7 +2051,7 @@
       </field>
       <field>
         <name>compliment_cute</name>
-        <path>$.compliment_cute</path>
+        <path>$[*].compliment_cute</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2152,7 +2064,7 @@
       </field>
       <field>
         <name>compliment_list</name>
-        <path>$.compliment_list</path>
+        <path>$[*].compliment_list</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2165,7 +2077,7 @@
       </field>
       <field>
         <name>compliment_note</name>
-        <path>$.compliment_note</path>
+        <path>$[*].compliment_note</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2178,7 +2090,7 @@
       </field>
       <field>
         <name>compliment_plain</name>
-        <path>$.compliment_plain</path>
+        <path>$[*].compliment_plain</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2191,7 +2103,7 @@
       </field>
       <field>
         <name>compliment_cool</name>
-        <path>$.compliment_cool</path>
+        <path>$[*].compliment_cool</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2204,7 +2116,7 @@
       </field>
       <field>
         <name>compliment_funny</name>
-        <path>$.compliment_funny</path>
+        <path>$[*].compliment_funny</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2217,7 +2129,7 @@
       </field>
       <field>
         <name>compliment_writer</name>
-        <path>$.compliment_writer</path>
+        <path>$[*].compliment_writer</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2230,7 +2142,7 @@
       </field>
       <field>
         <name>compliment_photos</name>
-        <path>$.compliment_photos</path>
+        <path>$[*].compliment_photos</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -2243,7 +2155,7 @@
       </field>
     </fields>
     <limit>0</limit>
-    <IsInFields>Y</IsInFields>
+    <IsInFields>N</IsInFields>
     <IsAFile>N</IsAFile>
     <valueField>Line</valueField>
     <shortFileFieldName/>
@@ -2270,20 +2182,8 @@
   </step>
   <step_error_handling>
     <error>
-      <source_step>json_review 2</source_step>
-      <target_step>Text file output</target_step>
-      <is_enabled>N</is_enabled>
-      <nr_valuename/>
-      <descriptions_valuename/>
-      <fields_valuename/>
-      <codes_valuename/>
-      <max_errors/>
-      <max_pct_errors/>
-      <min_pct_rows/>
-    </error>
-    <error>
       <source_step>json_buisness</source_step>
-      <target_step>Text file output 4</target_step>
+      <target_step/>
       <is_enabled>Y</is_enabled>
       <nr_valuename/>
       <descriptions_valuename/>
@@ -2297,6 +2197,18 @@
       <source_step>json_checkin</source_step>
       <target_step>Text file output 3</target_step>
       <is_enabled>Y</is_enabled>
+      <nr_valuename/>
+      <descriptions_valuename/>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+    <error>
+      <source_step>json_review 2</source_step>
+      <target_step>Text file output</target_step>
+      <is_enabled>N</is_enabled>
       <nr_valuename/>
       <descriptions_valuename/>
       <fields_valuename/>
