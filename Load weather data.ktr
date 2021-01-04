@@ -959,6 +959,41 @@
     </hop>
   </order>
   <step>
+    <name>Add Id</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>Weather_ID</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2272</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Add city column</name>
     <type>Constant</type>
     <description/>
@@ -2129,26 +2164,72 @@
     </GUI>
   </step>
   <step>
-    <name>Add Id</name>
-    <type>Sequence</type>
+    <name>Cleanup</name>
+    <type>SelectValues</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>Weather_ID</valuename>
-    <use_database>N</use_database>
-    <connection/>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
+    <fields>
+      <field>
+        <name>Weather_ID</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Temperature_1</name>
+        <rename>Temperature</rename>
+      </field>
+      <field>
+        <name>Humidity</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Pressure</name>
+        <rename/>
+      </field>
+      <field>
+        <name>WindDirection</name>
+        <rename/>
+      </field>
+      <field>
+        <name>WindSpeed</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Description</name>
+        <rename/>
+      </field>
+      <field>
+        <name>datetime</name>
+        <rename/>
+      </field>
+      <field>
+        <name>City</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>datetime</name>
+        <rename>datetime</rename>
+        <type>Date</type>
+        <length>13</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy-MM-dd HH</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -2158,7 +2239,40 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>2272</xloc>
+      <xloc>2464</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Convert to Celsius</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>Temperature</field_name>
+      <formula_string>[Temperature] - 273.15</formula_string>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2368</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
@@ -7282,27 +7396,35 @@
     <fields>
       <field>
         <name>datetime</name>
+        <rename/>
       </field>
       <field>
         <name>City</name>
+        <rename/>
       </field>
       <field>
         <name>Humidity</name>
+        <rename/>
       </field>
       <field>
         <name>Temperature</name>
+        <rename/>
       </field>
       <field>
         <name>Pressure</name>
+        <rename/>
       </field>
       <field>
         <name>WindDirection</name>
+        <rename/>
       </field>
       <field>
         <name>WindSpeed</name>
+        <rename/>
       </field>
       <field>
         <name>Description</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -7527,103 +7649,6 @@
     <GUI>
       <xloc>2176</xloc>
       <yloc>528</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Convert to Celsius</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>Temperature</field_name>
-      <formula_string>[Temperature] - 273.15</formula_string>
-      <value_type>Integer</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>2368</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Cleanup</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>Weather_ID</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Temperature_1</name>
-        <rename>Temperature</rename>
-      </field>
-      <field>
-        <name>Humidity</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Pressure</name>
-        <rename/>
-      </field>
-      <field>
-        <name>WindDirection</name>
-        <rename/>
-      </field>
-      <field>
-        <name>WindSpeed</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Description</name>
-        <rename/>
-      </field>
-      <field>
-        <name>datetime</name>
-        <rename/>
-      </field>
-      <field>
-        <name>City</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>2464</xloc>
-      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
