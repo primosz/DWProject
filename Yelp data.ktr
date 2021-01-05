@@ -133,22 +133,22 @@
         <timeout_days/>
         <field>
           <id>ID_BATCH</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>ID_BATCH</name>
         </field>
         <field>
           <id>SEQ_NR</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>SEQ_NR</name>
         </field>
         <field>
           <id>LOGDATE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>LOGDATE</name>
         </field>
         <field>
           <id>TRANSNAME</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>TRANSNAME</name>
         </field>
         <field>
@@ -214,62 +214,62 @@
         <timeout_days/>
         <field>
           <id>ID_BATCH</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>ID_BATCH</name>
         </field>
         <field>
           <id>CHANNEL_ID</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>CHANNEL_ID</name>
         </field>
         <field>
           <id>LOG_DATE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>LOG_DATE</name>
         </field>
         <field>
           <id>LOGGING_OBJECT_TYPE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>LOGGING_OBJECT_TYPE</name>
         </field>
         <field>
           <id>OBJECT_NAME</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>OBJECT_NAME</name>
         </field>
         <field>
           <id>OBJECT_COPY</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>OBJECT_COPY</name>
         </field>
         <field>
           <id>REPOSITORY_DIRECTORY</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>REPOSITORY_DIRECTORY</name>
         </field>
         <field>
           <id>FILENAME</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>FILENAME</name>
         </field>
         <field>
           <id>OBJECT_ID</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>OBJECT_ID</name>
         </field>
         <field>
           <id>OBJECT_REVISION</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>OBJECT_REVISION</name>
         </field>
         <field>
           <id>PARENT_CHANNEL_ID</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>PARENT_CHANNEL_ID</name>
         </field>
         <field>
           <id>ROOT_CHANNEL_ID</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>ROOT_CHANNEL_ID</name>
         </field>
       </channel-log-table>
@@ -356,47 +356,47 @@
         <timeout_days/>
         <field>
           <id>ID_BATCH</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>ID_BATCH</name>
         </field>
         <field>
           <id>CHANNEL_ID</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>CHANNEL_ID</name>
         </field>
         <field>
           <id>LOG_DATE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>LOG_DATE</name>
         </field>
         <field>
           <id>METRICS_DATE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>METRICS_DATE</name>
         </field>
         <field>
           <id>METRICS_CODE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>METRICS_CODE</name>
         </field>
         <field>
           <id>METRICS_DESCRIPTION</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>METRICS_DESCRIPTION</name>
         </field>
         <field>
           <id>METRICS_SUBJECT</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>METRICS_SUBJECT</name>
         </field>
         <field>
           <id>METRICS_TYPE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>METRICS_TYPE</name>
         </field>
         <field>
           <id>METRICS_VALUE</id>
-          <enabled>Y</enabled>
+          <enabled>N</enabled>
           <name>METRICS_VALUE</name>
         </field>
       </metrics-log-table>
@@ -508,22 +508,27 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
-      <to>Merge join 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows 3</from>
-      <to>Merge join 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>json_review 2</from>
       <to>Select values 3 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Merge join 2</from>
+      <from>Sort rows 3</from>
+      <to>Stream lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Stream lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup</from>
+      <to>Filter rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows 2</from>
       <to>Save reviews with business</to>
       <enabled>Y</enabled>
     </hop>
@@ -637,7 +642,7 @@
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>880</yloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -670,42 +675,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>736</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Merge join 2</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Sort rows 3</step1>
-    <step2>Sort rows</step2>
-    <keys_1>
-      <key>business_id</key>
-    </keys_1>
-    <keys_2>
-      <key>business_id</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>816</xloc>
-      <yloc>592</yloc>
+      <xloc>1216</xloc>
+      <yloc>928</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -743,8 +714,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>832</xloc>
-      <yloc>720</yloc>
+      <xloc>736</xloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -779,8 +750,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>720</yloc>
+      <xloc>864</xloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -884,8 +855,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1456</xloc>
-      <yloc>736</yloc>
+      <xloc>1360</xloc>
+      <yloc>928</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -908,13 +879,13 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding/>
+    <encoding>windows-1250</encoding>
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\Reviews_with_business</name>
+      <name>D:\DWProject\ReviewsWithBusiness</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -980,42 +951,6 @@
         <precision>-1</precision>
       </field>
       <field>
-        <name>useful</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>0</precision>
-      </field>
-      <field>
-        <name>funny</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>0</precision>
-      </field>
-      <field>
-        <name>cool</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>0</precision>
-      </field>
-      <field>
         <name>date</name>
         <type>String</type>
         <format/>
@@ -1061,7 +996,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
+      <xloc>1120</xloc>
       <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1105,8 +1040,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>976</yloc>
+      <xloc>240</xloc>
+      <yloc>832</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1143,7 +1078,7 @@
     </remotesteps>
     <GUI>
       <xloc>512</xloc>
-      <yloc>880</yloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1176,8 +1111,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>720</yloc>
+      <xloc>480</xloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1207,18 +1142,6 @@
       </field>
       <field>
         <name>stars</name>
-        <rename/>
-      </field>
-      <field>
-        <name>useful</name>
-        <rename/>
-      </field>
-      <field>
-        <name>funny</name>
-        <rename/>
-      </field>
-      <field>
-        <name>cool</name>
         <rename/>
       </field>
       <field>
@@ -1271,7 +1194,7 @@
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>880</yloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1304,8 +1227,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1104</xloc>
-      <yloc>720</yloc>
+      <xloc>1008</xloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1378,8 +1301,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>720</yloc>
+      <xloc>608</xloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1402,7 +1325,7 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding/>
+    <encoding>windows-1250</encoding>
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
@@ -1492,8 +1415,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>656</yloc>
+      <xloc>400</xloc>
+      <yloc>848</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1535,7 +1458,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>25</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
@@ -1548,7 +1471,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>25</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
@@ -1561,7 +1484,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>15</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
@@ -1589,7 +1512,7 @@
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>880</yloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1671,8 +1594,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>720</yloc>
+      <xloc>320</xloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1714,7 +1637,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>25</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
@@ -1727,7 +1650,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>25</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
@@ -1735,6 +1658,19 @@
       <field>
         <name>business_id</name>
         <path>$[*].business_id</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>25</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>date</name>
+        <path>$[*].date</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -1749,58 +1685,6 @@
         <name>stars</name>
         <path>$[*].stars</path>
         <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>useful</name>
-        <path>$[*].useful</path>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>funny</name>
-        <path>$[*].funny</path>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>cool</name>
-        <path>$[*].cool</path>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>date</name>
-        <path>$[*].date</path>
-        <type>String</type>
         <format/>
         <currency/>
         <decimal/>
@@ -2175,8 +2059,169 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
-      <yloc>976</yloc>
+      <xloc>48</xloc>
+      <yloc>832</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Stream lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Sort rows</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>business_id</name>
+        <field>business_id</field>
+      </key>
+      <value>
+        <name>city</name>
+        <rename>city</rename>
+        <default/>
+        <type>None</type>
+      </value>
+      <value>
+        <name>name</name>
+        <rename>name</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Save reviews with business</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Las Vegas</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Phoenix</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Toronto</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Charlotte</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Pittsburgh</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
