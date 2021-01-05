@@ -444,7 +444,7 @@
     </hop>
     <hop>
       <from>Select values 2</from>
-      <to>Filter rows</to>
+      <to>Filter for 5 cities</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -454,87 +454,87 @@
     </hop>
     <hop>
       <from>json_checkin</from>
-      <to>Text file output 3</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>json_checkin</from>
       <to>Select values 3</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Select values 3</from>
       <to>Split checkins to rows</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Split checkins to rows</from>
       <to>Remove id prefix</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Remove id prefix</from>
       <to>Remove original date field</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows</from>
-      <to>Sort rows</to>
+      <from>Filter for 5 cities</from>
+      <to>Sort rows by business 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Remove original date field</from>
-      <to>Sort rows 2</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows 2</from>
-      <to>Merge join</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows</from>
-      <to>Merge join</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Merge join</from>
-      <to>Save checkins with business data</to>
-      <enabled>N</enabled>
+      <to>Sort rows by business 3</to>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Select values 3 2</from>
-      <to>Sort rows 3</to>
-      <enabled>Y</enabled>
+      <to>Sort rows by business</to>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>json_review 2</from>
       <to>Select values 3 2</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
-      <from>Sort rows 3</from>
-      <to>Stream lookup</to>
-      <enabled>Y</enabled>
+      <from>Sort rows by business</from>
+      <to>Match business with review</to>
+      <enabled>N</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
-      <to>Stream lookup</to>
-      <enabled>Y</enabled>
+      <from>Sort rows by business 2</from>
+      <to>Match business with review</to>
+      <enabled>N</enabled>
     </hop>
     <hop>
-      <from>Stream lookup</from>
-      <to>Filter rows 2</to>
-      <enabled>Y</enabled>
+      <from>Match business with review</from>
+      <to>Filter reviews for cities</to>
+      <enabled>N</enabled>
     </hop>
     <hop>
-      <from>Filter rows 2</from>
+      <from>Filter reviews for cities</from>
       <to>Save reviews with business</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows by business 3</from>
+      <to>Match business with checkin</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows by business 2</from>
+      <to>Match business with checkin</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Match business with checkin</from>
+      <to>Filter for cities</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter for cities</from>
+      <to>Save checkins with business data</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Filter rows</name>
+    <name>Filter for 5 cities</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -544,7 +544,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Sort rows</send_true_to>
+    <send_true_to>Sort rows by business 2</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -647,8 +647,8 @@
     </GUI>
   </step>
   <step>
-    <name>Merge join</name>
-    <type>MergeJoin</type>
+    <name>Filter reviews for cities</name>
+    <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -657,15 +657,94 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <join_type>RIGHT OUTER</join_type>
-    <step1>Sort rows 2</step1>
-    <step2>Sort rows</step2>
-    <keys_1>
-      <key>business_id</key>
-    </keys_1>
-    <keys_2>
-      <key>business_id</key>
-    </keys_2>
+    <send_true_to>Save reviews with business</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Las Vegas</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Phoenix</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Toronto</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Charlotte</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>city</leftvalue>
+            <function>=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Pittsburgh</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -675,8 +754,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1216</xloc>
-      <yloc>928</yloc>
+      <xloc>960</xloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -714,8 +793,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>912</yloc>
+      <xloc>752</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -750,8 +829,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>912</yloc>
+      <xloc>880</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -780,7 +859,7 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\Checkins_with_business</name>
+      <name>D:\DWProject\Checkins with business</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -855,8 +934,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1360</xloc>
-      <yloc>928</yloc>
+      <xloc>1440</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1111,8 +1190,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>912</yloc>
+      <xloc>512</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1134,19 +1213,15 @@
       </field>
       <field>
         <name>review_id</name>
-        <rename/>
       </field>
       <field>
         <name>business_id</name>
-        <rename/>
       </field>
       <field>
         <name>stars</name>
-        <rename/>
       </field>
       <field>
         <name>date</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1159,13 +1234,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
+      <xloc>512</xloc>
       <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort rows</name>
+    <name>Sort rows by business 2</name>
     <type>SortRows</type>
     <description/>
     <distribute>N</distribute>
@@ -1199,7 +1274,7 @@
     </GUI>
   </step>
   <step>
-    <name>Sort rows 2</name>
+    <name>Sort rows by business 3</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1227,13 +1302,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
-      <yloc>912</yloc>
+      <xloc>1024</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort rows 3</name>
+    <name>Sort rows by business</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1301,8 +1376,56 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>912</yloc>
+      <xloc>640</xloc>
+      <yloc>880</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Match business with review</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Sort rows by business 2</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>business_id</name>
+        <field>business_id</field>
+      </key>
+      <value>
+        <name>city</name>
+        <rename>city</rename>
+        <default/>
+        <type>None</type>
+      </value>
+      <value>
+        <name>name</name>
+        <rename>name</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1360,63 +1483,6 @@
     <GUI>
       <xloc>464</xloc>
       <yloc>512</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Text file output 3</name>
-    <type>TextFileOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding>windows-1250</encoding>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>file</name>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery/>
-    </file>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>848</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1594,8 +1660,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>912</yloc>
+      <xloc>384</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2065,7 +2131,7 @@
     </GUI>
   </step>
   <step>
-    <name>Stream lookup</name>
+    <name>Match business with checkin</name>
     <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -2075,7 +2141,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>Sort rows</from>
+    <from>Sort rows by business 2</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
@@ -2107,13 +2173,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>592</yloc>
+      <xloc>1184</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filter rows 2</name>
+    <name>Filter for cities</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -2123,7 +2189,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Save reviews with business</send_true_to>
+    <send_true_to>Save checkins with business data</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -2220,8 +2286,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>592</yloc>
+      <xloc>1312</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
