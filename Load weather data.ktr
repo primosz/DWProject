@@ -903,37 +903,32 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read WindS 2</from>
+      <from>Read Desc</from>
       <to>Select Pittsburgh 2 2 2 2 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read WindS 2</from>
+      <from>Read Desc</from>
       <to>Select Phoenix 2 2 2 2 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read WindS 2</from>
+      <from>Read Desc</from>
       <to>Select Toronto 2 2 2 2 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read WindS 2</from>
+      <from>Read Desc</from>
       <to>Select Charlotte 2 2 2 2 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read WindS 2</from>
+      <from>Read Desc</from>
       <to>Select Las Vegas 2 2 2 2 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Join windS</from>
-      <to>Join desc</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sorted merge 2 2 2 2 2</from>
       <to>Join desc</to>
       <enabled>Y</enabled>
     </hop>
@@ -955,6 +950,21 @@
     <hop>
       <from>Convert to Celsius</from>
       <to>Cleanup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Cleanup</from>
+      <to>Text file output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sorted merge 2 2 2 2 2</from>
+      <to>Trim description</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Trim description</from>
+      <to>Join desc</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1262,7 +1272,7 @@
     </remotesteps>
     <GUI>
       <xloc>2016</xloc>
-      <yloc>608</yloc>
+      <yloc>688</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1496,7 +1506,7 @@
     </remotesteps>
     <GUI>
       <xloc>2016</xloc>
-      <yloc>480</yloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1730,7 +1740,7 @@
     </remotesteps>
     <GUI>
       <xloc>2016</xloc>
-      <yloc>432</yloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1964,7 +1974,7 @@
     </remotesteps>
     <GUI>
       <xloc>2016</xloc>
-      <yloc>672</yloc>
+      <yloc>752</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2159,7 +2169,7 @@
     </remotesteps>
     <GUI>
       <xloc>2016</xloc>
-      <yloc>544</yloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2290,7 +2300,7 @@
     </partitioning>
     <join_type>INNER</join_type>
     <step1>Join windS</step1>
-    <step2>Sorted merge 2 2 2 2 2</step2>
+    <step2>Trim description</step2>
     <keys_1>
       <key>datetime</key>
       <key>City</key>
@@ -2496,7 +2506,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}/weather/wind_direction.csv</name>
+      <name>D:\DWProject/weather/wind_direction.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3141,7 +3151,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}/weather/wind_speed.csv</name>
+      <name>D:\DWProject/weather/wind_speed.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3748,7 +3758,7 @@
     </GUI>
   </step>
   <step>
-    <name>Read WindS 2</name>
+    <name>Read Desc</name>
     <type>TextFileInput</type>
     <description/>
     <distribute>N</distribute>
@@ -3791,7 +3801,7 @@
       <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${Internal.Entry.Current.Directory}/weather/weather_description.csv</name>
+      <name>D:\DWProject/weather/weather_description.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -4393,7 +4403,7 @@
     </remotesteps>
     <GUI>
       <xloc>1680</xloc>
-      <yloc>544</yloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4436,7 +4446,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}/weather/humidity.csv</name>
+      <name>D:\DWProject\weather\humidity.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -5081,7 +5091,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}/weather/pressure.csv</name>
+      <name>D:\DWProject/weather/pressure.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -5726,7 +5736,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}/weather/temperature.csv</name>
+      <name>D:\DWProject/weather/temperature.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -6538,7 +6548,7 @@
     </remotesteps>
     <GUI>
       <xloc>1856</xloc>
-      <yloc>608</yloc>
+      <yloc>688</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -6748,7 +6758,7 @@
     </remotesteps>
     <GUI>
       <xloc>1856</xloc>
-      <yloc>544</yloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -6958,7 +6968,7 @@
     </remotesteps>
     <GUI>
       <xloc>1856</xloc>
-      <yloc>432</yloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -7168,7 +7178,7 @@
     </remotesteps>
     <GUI>
       <xloc>1856</xloc>
-      <yloc>672</yloc>
+      <yloc>752</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -7378,7 +7388,7 @@
     </remotesteps>
     <GUI>
       <xloc>1856</xloc>
-      <yloc>480</yloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -7423,8 +7433,8 @@
         <rename/>
       </field>
       <field>
-        <name>Description</name>
-        <rename/>
+        <name>Description1</name>
+        <rename>Description</rename>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -7648,7 +7658,212 @@
     </remotesteps>
     <GUI>
       <xloc>2176</xloc>
-      <yloc>528</yloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Text file output</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>windows-1250</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>D:\DWProject\Weather data</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>Weather_ID</name>
+        <type>Integer</type>
+        <format>####0;-####0</format>
+        <currency/>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Temperature</name>
+        <type>Integer</type>
+        <format>####0;-####0</format>
+        <currency/>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Humidity</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>zł</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Pressure</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>zł</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>WindDirection</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>zł</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>WindSpeed</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>zł</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Description</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>23</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>datetime</name>
+        <type>Date</type>
+        <format>yyyy-MM-dd HH</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>13</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>City</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2464</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Trim description</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>Description</in_stream_name>
+        <out_stream_name>Description1</out_stream_name>
+        <trim_type>both</trim_type>
+        <lower_upper/>
+        <padding_type/>
+        <pad_char/>
+        <pad_len/>
+        <init_cap/>
+        <mask_xml/>
+        <digits/>
+        <remove_special_characters/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2176</xloc>
+      <yloc>496</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
