@@ -1,3 +1,7 @@
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.io.*;
 import java.util.regex.Pattern;
 
@@ -26,12 +30,19 @@ public class ReplaceInFile {
             outFile.createNewFile();
         }
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outFile));
-
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
             String line;
             bufferedWriter.write("[");
+            int i = 0;
             while ((line = bufferedReader.readLine()) != null) {
-                bufferedWriter.write(matchAndReplace(line));
+                JsonNode logStorageNode = objectMapper.readTree(line);
+                ObjectNode object = (ObjectNode) logStorageNode;
+                object.remove("text");
+                if (i % 10000 == 0)
+                    System.out.println(i);
+                i++;
+                bufferedWriter.write(matchAndReplace(object.toString()));
                 bufferedWriter.newLine();
             }
             bufferedWriter.write("]");
