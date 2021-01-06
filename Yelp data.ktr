@@ -455,22 +455,22 @@
     <hop>
       <from>json_checkin</from>
       <to>Select values 3</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Select values 3</from>
       <to>Split checkins to rows</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Split checkins to rows</from>
       <to>Remove id prefix</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Remove id prefix</from>
       <to>Remove original date field</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Filter for 5 cities</from>
@@ -480,71 +480,81 @@
     <hop>
       <from>Remove original date field</from>
       <to>Sort rows by business 3</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Select values 3 2</from>
       <to>Sort rows by business</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>json_review 2</from>
       <to>Select values 3 2</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Sort rows by business</from>
       <to>Match business with review</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Sort rows by business 2</from>
       <to>Match business with review</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Match business with review</from>
       <to>Filter reviews for cities</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Filter reviews for cities</from>
-      <to>Save reviews with business</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Sort rows by business 3</from>
       <to>Match business with checkin</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Sort rows by business 2</from>
       <to>Match business with checkin</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Match business with checkin</from>
       <to>Filter for cities</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Add Id</from>
       <to>Save checkins with business data</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Filter for years</from>
       <to>Add Id</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Filter for cities</from>
       <to>Strings cut</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Strings cut</from>
       <to>Filter for years</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Strings cut 2</from>
+      <to>Filter for years 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter reviews for cities</from>
+      <to>Strings cut 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter for years 2</from>
+      <to>Save reviews with business</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -810,6 +820,77 @@
     </GUI>
   </step>
   <step>
+    <name>Filter for years</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Add Id</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>Year</leftvalue>
+                <function>&gt;=</function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>Integer</type>
+                  <text>2012</text>
+                  <length>-1</length>
+                  <precision>0</precision>
+                  <isnull>N</isnull>
+                  <mask>#</mask>
+                </value>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <leftvalue>Year</leftvalue>
+                <function>&lt;=</function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>Integer</type>
+                  <text>2017</text>
+                  <length>-1</length>
+                  <precision>0</precision>
+                  <isnull>N</isnull>
+                  <mask>####0;-####0</mask>
+                </value>
+              </condition>
+            </conditions>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1232</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Filter reviews for cities</name>
     <type>FilterRows</type>
     <description/>
@@ -820,7 +901,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Save reviews with business</send_true_to>
+    <send_true_to>Strings cut 2</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -1303,13 +1384,13 @@
       <field>
         <name>date</name>
         <type>String</type>
-        <format/>
+        <format>yyyy-MM-dd HH</format>
         <currency/>
         <decimal/>
         <group/>
         <nullif/>
         <trim_type>both</trim_type>
-        <length>-1</length>
+        <length>13</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1346,7 +1427,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
+      <xloc>1040</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1648,6 +1729,39 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Strings cut</name>
+    <type>StringCut</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>date</in_stream_name>
+        <out_stream_name>Year</out_stream_name>
+        <cut_from>0</cut_from>
+        <cut_to>4</cut_to>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1136</xloc>
       <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2354,7 +2468,7 @@
     </GUI>
   </step>
   <step>
-    <name>Filter for years</name>
+    <name>Filter for years 2</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -2364,7 +2478,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Add Id</send_true_to>
+    <send_true_to>Save reviews with business</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -2419,13 +2533,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1232</xloc>
-      <yloc>416</yloc>
+      <xloc>896</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Strings cut</name>
+    <name>Strings cut 2</name>
     <type>StringCut</type>
     <description/>
     <distribute>Y</distribute>
@@ -2452,8 +2566,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
-      <yloc>416</yloc>
+      <xloc>800</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
