@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS review_test
+(
+    review_id   BIGSERIAL PRIMARY KEY,
+    user_id     BIGINT,
+    business_id BIGINT,
+    stars       BIGINT,
+    useful      BIGINT,
+    funny       BIGINT,
+    cool        BIGINT,
+    date        TIMESTAMP
+);
+
+
+DROP TABLE IF EXISTS review_test CASCADE;
+
+set content type "C:\\piotr\\Studia\\Magisterka\\Data Warehouses\\Project\\databases\\yelp\\yelp_academic_dataset_review.json";
+insert into review_test select * from jsonb_array_elements(:'content');
+
+
+SET CONTENT 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\yelp\yelp_academic_dataset_review.json';
+INSERT INTO review_test VALUES(:'content');
+
+create unlogged table customer_import (doc json);
+COPY customer_import from 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\tmp.json';
+
+insert into review_test (review_id, user_id, business_id, stars, useful, funny, cool, date)
+select p.*
+from customer_import l
+         cross join lateral json_populate_recordset(null::review_test, doc) as p
+
+-- COPY agents(first_name,last_name,phone_number,email)
+--     FROM 'dataset\Agents.csv' DELIMITER ',' CSV HEADER;

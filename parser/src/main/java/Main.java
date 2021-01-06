@@ -16,11 +16,11 @@ public class Main {
         String business = "C:\\piotr\\Studia\\Magisterka\\Data Warehouses\\Project\\databases\\yelp\\yelp_academic_dataset_business.json";
 
 
-//        ReplaceInFile replaceInFile = new ReplaceInFile("}", "},");
-//        replaceInFile.matchAndReplace(new File(business), new File("Business.json"));
+        ReplaceInFile replaceInFile = new ReplaceInFile("}", "},");
+        replaceInFile.matchAndReplace(new File(review), new File("Review.json"));
 
 
-        readReview(new File(review), "Review.json");
+//        readReview(new File(review), "Review.json");
 
 //        read(new File(user), "User.json");
 //
