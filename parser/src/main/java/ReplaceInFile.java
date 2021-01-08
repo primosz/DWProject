@@ -38,7 +38,24 @@ public class ReplaceInFile {
             while ((line = bufferedReader.readLine()) != null) {
                 JsonNode logStorageNode = objectMapper.readTree(line);
                 ObjectNode object = (ObjectNode) logStorageNode;
-                object.remove("text");
+                object.remove("friends");
+                object.remove("fans");
+                object.remove("compliment_hot");
+                object.remove("compliment_more");
+                object.remove("compliment_more");
+                object.remove("compliment_profile");
+                object.remove("compliment_cute");
+                object.remove("compliment_list");
+                object.remove("compliment_note");
+                object.remove("compliment_plain");
+                object.remove("compliment_cool");
+                object.remove("compliment_funny");
+                object.remove("compliment_writer");
+                object.remove("compliment_photos");
+                object.remove("useful");
+                object.remove("funny");
+                object.remove("cool");
+                object.remove("elite");
                 if (i % 10000 == 0)
                     System.out.println(i);
                 i++;

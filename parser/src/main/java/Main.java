@@ -27,7 +27,7 @@ public class Main {
         String user = "C:\\piotr\\Studia\\Magisterka\\Data Warehouses\\Project\\databases\\yelp\\yelp_academic_dataset_user.json";
         String business = "C:\\piotr\\Studia\\Magisterka\\Data Warehouses\\Project\\databases\\yelp\\yelp_academic_dataset_business.json";
 
-        analyse(new File(review), "Sentiment.json");
+//        analyse(new File(review), "Sentiment.json");
 
 //        Properties props = new Properties();
 //        props.setProperty("annotators", "tokenize, ssplit, pos, parse, sentiment");
@@ -49,8 +49,8 @@ public class Main {
 //        // create a document object
 //        CoreDocument document = pipeline.processToCoreDocument("I love you");
 
-//        ReplaceInFile replaceInFile = new ReplaceInFile("}", "},");
-//        replaceInFile.matchAndReplace(new File(review), new File("Review.json"));
+        ReplaceInFile replaceInFile = new ReplaceInFile("}", "},");
+        replaceInFile.matchAndReplace(new File(user), new File("User.json"));
 
 
 //        readReview(new File(review), "Review.json");
