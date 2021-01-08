@@ -1444,15 +1444,19 @@
       </field>
       <field>
         <name>stars</name>
+        <rename/>
       </field>
       <field>
         <name>date</name>
-      </field>
-      <field>
-        <name>city</name>
+        <rename/>
       </field>
       <field>
         <name>name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>city</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1802,48 +1806,48 @@
       <field>
         <name>user_id</name>
         <type>Integer</type>
-        <format>####0;-####0</format>
+        <format>0</format>
         <currency/>
         <decimal>,</decimal>
         <group> </group>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>review_id</name>
         <type>Integer</type>
-        <format>####0;-####0</format>
+        <format>0</format>
         <currency/>
         <decimal>,</decimal>
         <group> </group>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>business_id</name>
         <type>Integer</type>
-        <format>####0;-####0</format>
+        <format>0</format>
         <currency/>
         <decimal>,</decimal>
         <group> </group>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>stars</name>
         <type>Number</type>
-        <format/>
+        <format>0.#####</format>
         <currency/>
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1855,7 +1859,19 @@
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
+        <length>13</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>name</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1867,20 +1883,8 @@
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>name</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>25</length>
+        <trim_type>both</trim_type>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
     </fields>
@@ -1998,7 +2002,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
+      <xloc>528</xloc>
       <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
