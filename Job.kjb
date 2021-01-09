@@ -287,7 +287,7 @@
   <shared_objects_file/>
   <entries>
     <entry>
-      <name>Transformation</name>
+      <name>Preparing Weather Data</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
@@ -326,7 +326,7 @@
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Transformation 2</name>
+      <name>Preparing Yelp Data</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
@@ -365,7 +365,7 @@
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Transformation 3</name>
+      <name>Assigning WeatherID to ReviewCheckin</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
@@ -428,8 +428,8 @@
   </entries>
   <hops>
     <hop>
-      <from>Transformation</from>
-      <to>Transformation 2</to>
+      <from>Preparing Weather Data</from>
+      <to>Preparing Yelp Data</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -437,8 +437,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Transformation 2</from>
-      <to>Transformation 3</to>
+      <from>Preparing Yelp Data</from>
+      <to>Assigning WeatherID to ReviewCheckin</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -447,7 +447,7 @@
     </hop>
     <hop>
       <from>Start</from>
-      <to>Transformation</to>
+      <to>Preparing Weather Data</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
