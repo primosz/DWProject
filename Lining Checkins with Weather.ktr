@@ -462,39 +462,74 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
-      <to>Save checkins with weatherId</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Filter rows 2</from>
       <to>Select values 2</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Select values 2</from>
       <to>Sort rows 2</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows 2</from>
-      <to>Save reviews with weatherId</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Stream lookup 2</from>
       <to>Filter rows 2</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Review data</from>
       <to>Stream lookup 2</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Weather data</from>
       <to>Stream lookup 2</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Data grid</from>
+      <to>Stream lookup 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2</from>
+      <to>Stream lookup 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Data grid</from>
+      <to>Stream lookup 3 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Stream lookup 3 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup 3</from>
+      <to>Select values 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup 3 2</from>
+      <to>Select values 2 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 2 2</from>
+      <to>Save reviews with weatherId</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 2 2 2</from>
+      <to>Save checkins with weatherId</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Data grid</from>
+      <to>Save cities with Id</to>
+      <enabled>Y</enabled>
     </hop>
   </order>
   <step>
@@ -951,7 +986,7 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding/>
+    <encoding>windows-1250</encoding>
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
@@ -974,6 +1009,66 @@
       <splitevery/>
     </file>
     <fields>
+      <field>
+        <name>Checkin_ID</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>business_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>22</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Weather_ID</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>City_id</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>date</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>13</length>
+        <precision>-1</precision>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -984,7 +1079,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
+      <xloc>1024</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1031,6 +1126,90 @@
       <splitevery/>
     </file>
     <fields>
+      <field>
+        <name>review_id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>user_id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>business_id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Weather_ID</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>City_id</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>stars</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>3</length>
+        <precision>1</precision>
+      </field>
+      <field>
+        <name>date</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>13</length>
+        <precision>-1</precision>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1041,7 +1220,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
+      <xloc>1024</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1103,35 +1282,27 @@
     <fields>
       <field>
         <name>review_id</name>
-        <rename/>
       </field>
       <field>
         <name>user_id</name>
-        <rename/>
       </field>
       <field>
         <name>business_id</name>
-        <rename/>
       </field>
       <field>
         <name>stars</name>
-        <rename/>
       </field>
       <field>
         <name>date</name>
-        <rename/>
       </field>
       <field>
         <name>name</name>
-        <rename/>
       </field>
       <field>
         <name>city</name>
-        <rename/>
       </field>
       <field>
         <name>Weather_ID</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1587,6 +1758,348 @@
     <GUI>
       <xloc>128</xloc>
       <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Data grid</name>
+    <type>DataGrid</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>City_id</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+      <field>
+        <name>Name</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+    </fields>
+    <data>
+      <line>
+        <item>0</item>
+        <item>Phoenix</item>
+      </line>
+      <line>
+        <item>1</item>
+        <item>Charlotte</item>
+      </line>
+      <line>
+        <item>2</item>
+        <item>Las Vegas</item>
+      </line>
+      <line>
+        <item>3</item>
+        <item>Pittsburgh</item>
+      </line>
+      <line>
+        <item>4</item>
+        <item>Toronto</item>
+      </line>
+    </data>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Stream lookup 3</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Data grid</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>city</name>
+        <field>Name</field>
+      </key>
+      <value>
+        <name>City_id</name>
+        <rename>City_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Stream lookup 3 2</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Data grid</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>city</name>
+        <field>Name</field>
+      </key>
+      <value>
+        <name>City_id</name>
+        <rename>City_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 2 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>review_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>user_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>business_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Weather_ID</name>
+        <rename/>
+      </field>
+      <field>
+        <name>City_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>stars</name>
+        <rename/>
+      </field>
+      <field>
+        <name>date</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 2 2 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>Checkin_ID</name>
+        <rename/>
+      </field>
+      <field>
+        <name>business_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Weather_ID</name>
+        <rename/>
+      </field>
+      <field>
+        <name>City_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>date</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Save cities with Id</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>windows-1250</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>D:\DWProject\CitiesWithId</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>City_id</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Name</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
