@@ -1,32 +1,89 @@
-CREATE TABLE IF NOT EXISTS review_test
+DROP TABLE IF EXISTS dw_buisness CASCADE;
+DROP TABLE IF EXISTS dw_users CASCADE;
+DROP TABLE IF EXISTS dw_weather CASCADE;
+DROP TABLE IF EXISTS dw_checkin CASCADE;
+DROP TABLE IF EXISTS dw_review CASCADE;
+DROP TABLE IF EXISTS dw_city CASCADE;
+
+CREATE TABLE dw_buisness
 (
-    review_id   BIGSERIAL PRIMARY KEY,
-    user_id     BIGINT,
-    business_id BIGINT,
-    stars       BIGINT,
-    useful      BIGINT,
-    funny       BIGINT,
-    cool        BIGINT,
-    date        TIMESTAMP
+    business_id BIGSERIAL PRIMARY KEY,
+    "name"      VARCHAR(255),
+    city        VARCHAR(255)
+);
+
+CREATE TABLE dw_users
+(
+    User_IDb      BIGSERIAL PRIMARY KEY,
+    "name"        TEXT,
+    review_count  DOUBLE PRECISION,
+    average_stars DOUBLE PRECISION
 );
 
 
-DROP TABLE IF EXISTS review_test CASCADE;
+CREATE TABLE dw_weather
+(
+    Weather_ID    BIGSERIAL PRIMARY KEY,
+    Temperature   INTEGER,
+    Humidity      DOUBLE PRECISION,
+    Pressure      DOUBLE PRECISION,
+    WindDirection DOUBLE PRECISION,
+    WindSpeed     DOUBLE PRECISION,
+    Description   VARCHAR(100),
+    City          TEXT
+);
 
-set content type "C:\\piotr\\Studia\\Magisterka\\Data Warehouses\\Project\\databases\\yelp\\yelp_academic_dataset_review.json";
-insert into review_test select * from jsonb_array_elements(:'content');
+
+CREATE TABLE dw_checkin
+(
+    Checkin_ID  BIGSERIAL PRIMARY KEY,
+    Business_ID DOUBLE PRECISION,
+    Weather_ID  DOUBLE PRECISION,
+    City_ID     DOUBLE PRECISION,
+    Date        timestamp
+);
 
 
-SET CONTENT 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\yelp\yelp_academic_dataset_review.json';
-INSERT INTO review_test VALUES(:'content');
+CREATE TABLE dw_review
+(
+    Review_ID   BIGSERIAL PRIMARY KEY,
+    User_ID     DOUBLE PRECISION,
+    Business_ID DOUBLE PRECISION,
+    Weather_ID  DOUBLE PRECISION,
+    City_ID     DOUBLE PRECISION,
+    Stars       DOUBLE PRECISION,
+    Date        timestamp
+);
 
-create unlogged table customer_import (doc json);
-COPY customer_import from 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\tmp.json';
+CREATE TABLE dw_city
+(
+    City_ID BIGSERIAL PRIMARY KEY,
+    Name    VARCHAR(100)
+);
 
-insert into review_test (review_id, user_id, business_id, stars, useful, funny, cool, date)
-select p.*
-from customer_import l
-         cross join lateral json_populate_recordset(null::review_test, doc) as p
 
--- COPY agents(first_name,last_name,phone_number,email)
---     FROM 'dataset\Agents.csv' DELIMITER ',' CSV HEADER;
+COPY dw_buisness (business_id, name, city)
+    FROM 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\csv_files\dw_buisness.csv' DELIMITER ';' CSV HEADER;
+
+COPY dw_users (User_IDb, name, review_count, average_stars)
+    FROM 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\csv_files\dw_users.csv' DELIMITER ';' CSV HEADER;
+
+COPY dw_weather (Weather_ID, Temperature, Humidity, Pressure, WindDirection, WindSpeed, Description, City)
+    FROM 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\csv_files\dw_weatherdata.csv' DELIMITER ';' CSV HEADER;
+
+COPY dw_review (Review_ID, User_ID, Business_ID, Weather_ID, City_ID, Stars, Date)
+    FROM 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\csv_files\dw_reviews.csv' DELIMITER ';' CSV HEADER;
+
+COPY dw_checkin (Checkin_ID, Business_ID, Weather_ID, City_ID, Date)
+    FROM 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\csv_files\dw_checkins.csv' DELIMITER ';' CSV HEADER;
+
+COPY dw_city (City_ID, Name)
+    FROM 'C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\parser\csv_files\dw_cities.csv' DELIMITER ';' CSV HEADER;
+
+SELECT count(*) FROM public.dw_buisness;
+SELECT count(*) FROM public.dw_users;
+SELECT count(*) FROM public.dw_weather;
+SELECT count(*) FROM public.dw_review;
+SELECT count(*) FROM public.dw_checkin;
+SELECT count(*) FROM public.dw_city;
+
