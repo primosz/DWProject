@@ -37,9 +37,9 @@ CREATE TABLE dw_weather
 CREATE TABLE dw_checkin
 (
     Checkin_ID  BIGSERIAL PRIMARY KEY,
-    Business_ID DOUBLE PRECISION,
-    Weather_ID  DOUBLE PRECISION,
-    City_ID     DOUBLE PRECISION,
+    Business_ID INTEGER,
+    Weather_ID  INTEGER,
+    City_ID     INTEGER,
     Date        timestamp
 );
 
@@ -47,10 +47,10 @@ CREATE TABLE dw_checkin
 CREATE TABLE dw_review
 (
     Review_ID   BIGSERIAL PRIMARY KEY,
-    User_ID     DOUBLE PRECISION,
-    Business_ID DOUBLE PRECISION,
-    Weather_ID  DOUBLE PRECISION,
-    City_ID     DOUBLE PRECISION,
+    User_ID     INTEGER,
+    Business_ID INTEGER,
+    Weather_ID  INTEGER,
+    City_ID     INTEGER,
     Stars       DOUBLE PRECISION,
     Date        timestamp
 );
@@ -86,4 +86,12 @@ SELECT count(*) FROM public.dw_weather;
 SELECT count(*) FROM public.dw_review;
 SELECT count(*) FROM public.dw_checkin;
 SELECT count(*) FROM public.dw_city;
+
+SELECT * FROM public.dw_checkin
+ORDER BY business_id ASC LIMIT 100;
+
+
+SELECT *
+FROM dw_review
+         INNER JOIN dw_buisness ON dw_review.Business_ID=dw_buisness.business_id;
 

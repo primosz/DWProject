@@ -293,7 +293,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>D:/DWProject/repo/DWProject/Load weather data.ktr</filename>
+      <filename>C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\Load weather data.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -332,7 +332,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>D:/DWProject/repo/DWProject/Yelp data.ktr</filename>
+      <filename>C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\Yelp data.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -371,7 +371,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>D:/DWProject/repo/DWProject/Lining Checkins with Weather.ktr</filename>
+      <filename>C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\Lining-Checkins-with-Weather.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>

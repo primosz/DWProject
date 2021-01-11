@@ -436,6 +436,57 @@
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>postgres</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>dbpg</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>5432</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
       <from>Read humidity</from>
@@ -948,11 +999,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Convert to Celsius</from>
-      <to>Cleanup</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Cleanup</from>
       <to>Text file output</to>
       <enabled>Y</enabled>
@@ -965,6 +1011,11 @@
     <hop>
       <from>Trim description</from>
       <to>Join desc</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Convert to Celsius</from>
+      <to>Cleanup</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -2214,31 +2265,10 @@
         <rename/>
       </field>
       <field>
-        <name>datetime</name>
-        <rename/>
-      </field>
-      <field>
         <name>City</name>
         <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>datetime</name>
-        <rename>datetime</rename>
-        <type>Date</type>
-        <length>13</length>
-        <precision>-2</precision>
-        <conversion_mask>yyyy-MM-dd HH</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -2249,7 +2279,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>2464</xloc>
+      <xloc>2512</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2282,7 +2312,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>2368</xloc>
+      <xloc>2384</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2468,6 +2498,656 @@
     </GUI>
   </step>
   <step>
+    <name>Read Desc</name>
+    <type>TextFileInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <accept_filenames>N</accept_filenames>
+    <passing_through_fields>N</passing_through_fields>
+    <accept_field/>
+    <accept_stepname/>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_breaks>N</enclosure_breaks>
+    <escapechar/>
+    <header>Y</header>
+    <nr_headerlines>1</nr_headerlines>
+    <footer>N</footer>
+    <nr_footerlines>1</nr_footerlines>
+    <line_wrapped>N</line_wrapped>
+    <nr_wraps>1</nr_wraps>
+    <layout_paged>N</layout_paged>
+    <nr_lines_per_page>80</nr_lines_per_page>
+    <nr_lines_doc_header>0</nr_lines_doc_header>
+    <noempty>Y</noempty>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <rownumByFile>N</rownumByFile>
+    <rownum_field/>
+    <format>DOS</format>
+    <encoding/>
+    <length>Characters</length>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\weather\weather_description.csv</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <type>CSV</type>
+      <compression>None</compression>
+    </file>
+    <filters>
+    </filters>
+    <fields>
+      <field>
+        <name>datetime</name>
+        <type>Date</type>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Vancouver</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>13</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Portland</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>San_Francisco</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Seattle</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Los_Angeles</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>San_Diego</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Las_Vegas</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>12</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Phoenix</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Albuquerque</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Denver</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>21</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>San_Antonio</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>28</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Dallas</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Houston</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Kansas_City</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>27</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Minneapolis</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Saint_Louis</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Chicago</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Nashville</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Indianapolis</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Atlanta</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Detroit</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Jacksonville</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>22</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Charlotte</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Miami</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>28</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Pittsburgh</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Toronto</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Philadelphia</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>20</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>New_York</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Montreal</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Boston</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>23</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Beersheba</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>15</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Tel_Aviv_District</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Eilat</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Haifa</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>15</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Nahariyya</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>15</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Jerusalem</name>
+        <type>String</type>
+        <format/>
+        <currency>zł</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <nullif>-</nullif>
+        <ifnull/>
+        <position>-1</position>
+        <length>16</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <error_ignored>N</error_ignored>
+    <skip_bad_files>N</skip_bad_files>
+    <file_error_field/>
+    <file_error_message_field/>
+    <error_line_skipped>N</error_line_skipped>
+    <error_count_field/>
+    <error_fields_field/>
+    <error_text_field/>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <date_format_lenient>Y</date_format_lenient>
+    <date_format_locale>pl_PL</date_format_locale>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1680</xloc>
+      <yloc>624</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Read WindD</name>
     <type>TextFileInput</type>
     <description/>
@@ -2506,7 +3186,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>D:\DWProject/weather/wind_direction.csv</name>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\weather\wind_direction.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3151,7 +3831,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>D:\DWProject/weather/wind_speed.csv</name>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\weather\wind_speed.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3758,656 +4438,6 @@
     </GUI>
   </step>
   <step>
-    <name>Read Desc</name>
-    <type>TextFileInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <accept_filenames>N</accept_filenames>
-    <passing_through_fields>N</passing_through_fields>
-    <accept_field/>
-    <accept_stepname/>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <enclosure_breaks>N</enclosure_breaks>
-    <escapechar/>
-    <header>Y</header>
-    <nr_headerlines>1</nr_headerlines>
-    <footer>N</footer>
-    <nr_footerlines>1</nr_footerlines>
-    <line_wrapped>N</line_wrapped>
-    <nr_wraps>1</nr_wraps>
-    <layout_paged>N</layout_paged>
-    <nr_lines_per_page>80</nr_lines_per_page>
-    <nr_lines_doc_header>0</nr_lines_doc_header>
-    <noempty>Y</noempty>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <rownumByFile>N</rownumByFile>
-    <rownum_field/>
-    <format>DOS</format>
-    <encoding/>
-    <length>Characters</length>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>D:\DWProject/weather/weather_description.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <type>CSV</type>
-      <compression>None</compression>
-    </file>
-    <filters>
-    </filters>
-    <fields>
-      <field>
-        <name>datetime</name>
-        <type>Date</type>
-        <format>yyyy-MM-dd HH:mm:ss</format>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Vancouver</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>13</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Portland</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>San_Francisco</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Seattle</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Los_Angeles</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>San_Diego</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Las_Vegas</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>12</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Phoenix</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Albuquerque</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Denver</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>21</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>San_Antonio</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>28</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Dallas</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Houston</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Kansas_City</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>27</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Minneapolis</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Saint_Louis</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Chicago</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Nashville</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Indianapolis</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Atlanta</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Detroit</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Jacksonville</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>22</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Charlotte</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Miami</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>28</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Pittsburgh</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Toronto</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Philadelphia</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>20</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>New_York</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Montreal</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Boston</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>23</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Beersheba</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Tel_Aviv_District</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Eilat</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Haifa</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Nahariyya</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Jerusalem</name>
-        <type>String</type>
-        <format/>
-        <currency>zł</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <nullif>-</nullif>
-        <ifnull/>
-        <position>-1</position>
-        <length>16</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <error_ignored>N</error_ignored>
-    <skip_bad_files>N</skip_bad_files>
-    <file_error_field/>
-    <file_error_message_field/>
-    <error_line_skipped>N</error_line_skipped>
-    <error_count_field/>
-    <error_fields_field/>
-    <error_text_field/>
-    <bad_line_files_destination_directory/>
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
-    <line_number_files_extension>line</line_number_files_extension>
-    <date_format_lenient>Y</date_format_lenient>
-    <date_format_locale>pl_PL</date_format_locale>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1680</xloc>
-      <yloc>624</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Read humidity</name>
     <type>TextFileInput</type>
     <description/>
@@ -4446,7 +4476,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>D:\DWProject\weather\humidity.csv</name>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\weather\humidity.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -5091,7 +5121,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>D:\DWProject/weather/pressure.csv</name>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\weather\pressure.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -5736,7 +5766,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>D:\DWProject/weather/temperature.csv</name>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\databases\weather\temperature.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -7406,31 +7436,24 @@
     <fields>
       <field>
         <name>datetime</name>
-        <rename/>
       </field>
       <field>
         <name>City</name>
-        <rename/>
       </field>
       <field>
         <name>Humidity</name>
-        <rename/>
       </field>
       <field>
         <name>Temperature</name>
-        <rename/>
       </field>
       <field>
         <name>Pressure</name>
-        <rename/>
       </field>
       <field>
         <name>WindDirection</name>
-        <rename/>
       </field>
       <field>
         <name>WindSpeed</name>
-        <rename/>
       </field>
       <field>
         <name>Description1</name>
@@ -7681,13 +7704,13 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding>windows-1250</encoding>
+    <encoding>UTF-8</encoding>
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>D:\DWProject\Weather data</name>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\dw_weatherdata</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -7700,7 +7723,7 @@
       <date_time_format/>
       <add_to_result_filenames>Y</add_to_result_filenames>
       <pad>N</pad>
-      <fast_dump>N</fast_dump>
+      <fast_dump>Y</fast_dump>
       <splitevery/>
     </file>
     <fields>
@@ -7789,18 +7812,6 @@
         <precision>-1</precision>
       </field>
       <field>
-        <name>datetime</name>
-        <type>Date</type>
-        <format>yyyy-MM-dd HH</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>13</length>
-        <precision>-1</precision>
-      </field>
-      <field>
         <name>City</name>
         <type>String</type>
         <format/>
@@ -7822,8 +7833,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>2464</xloc>
-      <yloc>400</yloc>
+      <xloc>2512</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -7864,6 +7875,52 @@
     <GUI>
       <xloc>2176</xloc>
       <yloc>496</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>sql_file_weather</name>
+    <type>SQLFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>postgres</connection>
+    <schema/>
+    <table>dw_weather</table>
+    <truncate>N</truncate>
+    <create>N</create>
+    <encoding/>
+    <dateformat/>
+    <addtoresult>N</addtoresult>
+    <startnewline>N</startnewline>
+    <file>
+      <name>C:\piotr\Studia\Magisterka\Data Warehouses\Project\DWProject\dw_weather</name>
+      <extention>sql</extention>
+      <append>Y</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <splitevery>0</splitevery>
+      <create_parent_folder>N</create_parent_folder>
+      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
+    </file>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2384</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
